@@ -1,0 +1,16 @@
+{
+  "name": "App Template",
+  "description": "Template packaged app.",
+  "version": "1",
+  "manifest_version": 2,
+  "app": {
+    "background": {
+      "scripts": ["window.js"]
+    }
+  },
+  "permissions": ["storage"],
+  "icons": {
+    "16": "Assets/HexLines16.png",
+    "128": "Assets/HexLines.png"
+  }
+}
