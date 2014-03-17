@@ -1,0 +1,21 @@
+ul {
+  list-style: none;
+}
+
+.subtree>li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 200px;
+}
+
+.haschildren {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 150px;
+}
+
+.disabled {
+  color: gray;
+}
