@@ -72,6 +72,6 @@ $(PROJECT).zip : $(APP_DEPS) $(APPDIR)/window.js
 	cd $(APPDIR) && zip ../$(PROJECT).zip $(patsubst app/%,%,$(APP_DEPS))
 
 compiler.jar :
-	curl -O http://closure-compiler.googlecode.com/files/compiler-latest.zip
+	curl -O http://dl.google.com/closure-compiler/compiler-latest.zip
 	unzip compiler-latest.zip compiler.jar
 	rm compiler-latest.zip
