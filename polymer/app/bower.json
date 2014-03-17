@@ -1,0 +1,22 @@
+{
+  "name": "polymer-experiment",
+  "version": "0.0.0",
+  "authors": [
+    "Trent Apted <tapted@chromium.org>"
+  ],
+  "description": "Polymer playing in a package app",
+  "license": "Apache",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "~0.2.1",
+    "polymer-ui-toggle-button": "Polymer/polymer-ui-toggle-button#~0.2.1",
+    "polymer-flex-layout": "Polymer/polymer-flex-layout#~0.2.1"
+  }
+}
