@@ -1,21 +1,37 @@
+LOCAL_RULES := $(wildcard local-*.mk)
+include $(LOCAL_RULES)
+
 SRCDIR := .
 SRCS := $(shell cd $(SRCDIR) && ls *.js)
 
 APPDIR := app
 PROJECT := $(shell basename `pwd`)
 STATIC_DEPS := $(shell find app -type f -not -name '.*')
-GENERATED_DEPS := $(patsubst %,$(APPDIR)/%,$(SRCS))
+GENERATED_DEPS := $(patsubst %,$(APPDIR)/%,$(SRCS)) $(APPDIR)/main.html
 APP_DEPS := $(STATIC_DEPS) $(GENERATED_DEPS)
 
-# compilation_level options: WHITESPACE_ONLY SIMPLE_OPTIMIZATIONS, ADVANCED_OPTIMIZATIONS
-LINT := /usr/local/bin/gjslint
+NPM ?= $(shell which npm)
+BOWER ?= $(shell which bower)
+VULCANIZE ?= $(shell which vulcanize)
+PLATFORM ?= mac
 
-all : $(PROJECT).zip app/main.html
+all : $(PROJECT).zip
 
-app/bower_components:
+include requirements-$(PLATFORM).mk
+
+$(BOWER): $(NPM)
+	$(NPM) install -g bower
+	touch $@
+
+$(VULCANIZE): $(NPM)
+	$(NPM) install -g vulcanize
+	touch $@
+
+bower_components.updated: $(BOWER)
 	(cd app && bower update)
+	touch $@	
 
-app/main.html: app/index.html app/bower_components
+app/main.html: app/index.html bower_components.updated
 	vulcanize -o $@ $< --csp
 
 build/Assets/resources :
