@@ -18,7 +18,7 @@ $(NPM): SHASUMS.txt
 	curl -O http://nodejs.org/dist/latest/$(NODEDL)
 	tar xf $(NODEDL)
 	(cd $(NODEDIR) && ./configure --prefix=$(CURDIR)/node)
-	$(MAKE) -C && make install
+	$(MAKE) -C $(NODEDIR) install
 
 else
 NPM := $(if $(NPM),$(NPM),/usr/bin/npm)
