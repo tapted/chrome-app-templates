@@ -13,11 +13,19 @@ APP_DEPS := $(STATIC_DEPS) $(GENERATED_DEPS)
 NPM ?= $(shell which npm)
 BOWER ?= $(shell which bower)
 VULCANIZE ?= $(shell which vulcanize)
-PLATFORM ?= mac
+CHROME ?= $(shell which chrome)
 
-all : $(PROJECT).zip
+SYSTEM := $(shell uname -s)
+PLATFORM ?= $(if \
+  $(findstring Darwin, $(SYSTEM)),mac,$(if \
+    $(findstring CYGWIN, $(SYSTEM)),win,linux))
+
+all: $(PROJECT).zip
 
 include requirements-$(PLATFORM).mk
+
+run: $(PROJECT).zip
+	$(CHROME) --load-and-launch-app=$(CURDIR)/app
 
 $(BOWER): $(NPM)
 	$(NPM) install -g bower
@@ -27,7 +35,7 @@ $(VULCANIZE): $(NPM)
 	$(NPM) install -g vulcanize
 	touch $@
 
-bower_components.updated: $(BOWER)
+bower_components.updated: $(BOWER) $(VULCANIZE)
 	(cd app && bower update)
 	touch $@	
 
