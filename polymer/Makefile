@@ -41,7 +41,7 @@ bower_components.updated: $(BOWER) $(VULCANIZE)
 	touch $@
 
 app/main.html: app/index.html bower_components.updated
-	$(vulcanize) -o $@ $< --csp
+	$(VULCANIZE) -o $@ $< --csp
 
 build/Assets/resources :
 	mkdir -p build/Assets/resources || true
