@@ -1,6 +1,6 @@
 {
-  "name": "App Template",
-  "description": "Template packaged app.",
+  "name": "Packaged App Polymer Template",
+  "description": "The 'polymer' template app from https://github.com/tapted/chrome-app-templates/",
   "version": "1",
   "manifest_version": 2,
   "app": {
