@@ -36,11 +36,12 @@ $(VULCANIZE): $(NPM)
 	touch $@
 
 bower_components.updated: $(BOWER) $(VULCANIZE)
-	(cd app && bower update)
-	touch $@	
+	## Bower is screwy if it finds other things in $PATH.
+	(cd app && PATH="$(dir $(BOWER)):${PATH}" bower update)
+	touch $@
 
 app/main.html: app/index.html bower_components.updated
-	vulcanize -o $@ $< --csp
+	$(vulcanize) -o $@ $< --csp
 
 build/Assets/resources :
 	mkdir -p build/Assets/resources || true
