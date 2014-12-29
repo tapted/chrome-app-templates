@@ -30,10 +30,6 @@ chrome.storage = {
   }
 };
 
-var console = {
-  log : function(s) {}
-};
-
 /** @constructor */
 function RenderingContext() {
 }

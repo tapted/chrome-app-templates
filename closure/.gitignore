@@ -1,4 +1,5 @@
 *.zip
 app/bundle.js
+app/empty.js
 build/bundle.js
 compiler.jar
