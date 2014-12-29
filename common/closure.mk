@@ -4,7 +4,9 @@ APPDIR ?= app
 SRCS := $(shell cd $(SRCDIR) && ls *.js)
 STATIC_DEPS := $(shell find $(APPDIR) -type f -not -name '.*')
 GENERATED_DEPS := $(patsubst %,$(APPDIR)/%,$(SRCS))
-APP_DEPS := $(STATIC_DEPS) $(GENERATED_DEPS)
+
+SELF_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
+CHROME_EXTERNS := $(SELF_DIR)chrome-externs.js
 
 # compilation_level options: WHITESPACE_ONLY SIMPLE_OPTIMIZATIONS, ADVANCED_OPTIMIZATIONS
 LINT := /usr/local/bin/gjslint
@@ -12,7 +14,7 @@ CLOSURE := java -jar compiler.jar
 CLOSURE_ARGS := --warning_level VERBOSE \
 	--compilation_level ADVANCED_OPTIMIZATIONS \
 	--language_in ECMASCRIPT5_STRICT \
-	--externs build/externs.js \
+	--externs $(CHROME_EXTERNS) \
 	--formatting=pretty_print \
 	--summary_detail_level 3
 
@@ -24,7 +26,8 @@ $(APPDIR)/%.js : $(SRCDIR)/%.js
 	$(LINT) --unix_mode $<
 	$(CLOSURE) $(CLOSURE_LINT_ARGS) --js $< --js_output_file $@ || (rm $@ && false)
 
-build/bundle.js : compiler.jar $(SRCS) Makefile build/externs.js
+build/bundle.js : compiler.jar $(SRCS) Makefile $(CHROME_EXTERNS)
+	mkdir -p build
 	$(CLOSURE) $(CLOSURE_ARGS) $(patsubst %,--js %,$(SRCS)) --js_output_file $@ || (rm $@ && false)
 	cp build/bundle.js $(APPDIR)
 

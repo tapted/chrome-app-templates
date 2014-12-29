@@ -1,0 +1,13 @@
+/app/bower_components
+/build
+
+## Vulcanize outputs.
+/app/main.js
+/app/main.html
+
+## Closure outputs.
+/compiler.jar
+/app/bundle.js
+
+/*.zip
+/*.updated

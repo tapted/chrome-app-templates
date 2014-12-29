@@ -8,6 +8,8 @@ all: build/bundle.js $(PROJECT).zip
 include ../common/closure.mk
 include ../common/webstore.mk
 
+APP_DEPS := $(STATIC_DEPS) $(GENERATED_DEPS)
+
 build: $(APP_DEPS)
 
 $(PROJECT).zip: $(APP_DEPS) $(APPDIR)/window.js

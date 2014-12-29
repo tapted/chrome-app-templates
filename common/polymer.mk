@@ -23,3 +23,6 @@ bower_components.updated: $(BOWER) $(VULCANIZE)
 	## Bower is screwy if it finds other things in $PATH.
 	(cd app && PATH="$(dir $(BOWER)):${PATH}" bower update)
 	touch $@
+
+app/main.html: app/index.html bower_components.updated
+	$(VULCANIZE) -o $@ $< --csp
