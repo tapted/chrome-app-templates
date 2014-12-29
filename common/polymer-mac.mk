@@ -13,4 +13,4 @@ $(BREW):
 	git clone https://github.com/mxcl/homebrew.git $(BREW_ROOT)
 
 $(NPM): $(BREW)
-	$(BREW) install npm
+	$(BREW) install npm || true
