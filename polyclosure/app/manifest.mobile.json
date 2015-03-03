@@ -1,3 +1,10 @@
 {
-    "packageId": "com.your.company.AppTemplate"
+  "packageId": "com.your.company.AppTemplate",
+  "icons": {
+    "48": "Assets/res/mipmap-mdpi/ic_launcher.png",
+    "72": "Assets/res/mipmap-hdpi/ic_launcher.png",
+    "96": "Assets/res/mipmap-xhdpi/ic_launcher.png",
+    "144": "Assets/res/mipmap-xxhdpi/ic_launcher.png",
+    "192": "Assets/res/mipmap-xxxhdpi/ic_launcher.png"
+  }
 }
