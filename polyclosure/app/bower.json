@@ -15,8 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "polymer": "~0.2.1",
-    "polymer-ui-toggle-button": "Polymer/polymer-ui-toggle-button#~0.2.1",
-    "polymer-flex-layout": "Polymer/polymer-flex-layout#~0.2.1"
+    "polymer": "^0.5",
+    "paper-toggle-button": "Polymer/paper-toggle-button#^0.5"
   }
 }

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!-- platform.js for polyfill support. -->
-  <script src="bower_components/platform/platform.js"></script>
+  <!-- polyfill support. -->
+  <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
 
-  <link rel="import" href="bower_components/polymer-ui-toggle-button/polymer-ui-toggle-button.html">
   <link rel="stylesheet" href="styles.css" type="txt/css">
+
+  <link rel="import" href="bower_components/polymer/polymer.html">
+  <link rel="import" href="bower_components/paper-toggle-button/paper-toggle-button.html">
 
   <polymer-element name="subtree-item" attributes="width label isEnabled">
     <template>
@@ -16,12 +18,13 @@
         }
       </style>
       <li id="labelText"
+          class="{{ {disabled: !isEnabled} | tokenList }}"
           style="display:flex; align-items:center; justify-content:space-between; width:{{width}};">
         {{label}}
-        <polymer-ui-toggle-button
+        <paper-toggle-button
             id="subtreeButton"
-            on-click="{{toggleButton}}">
-        </polymer-ui-toggle-button>
+            checked="{{ isEnabled }}">
+        </paper-toggle-button>
       </li>
     </template>
     <script>
@@ -29,15 +32,24 @@
         width: '200px',
         label: 'Label',
         isEnabled: false,
-        ready: function() {
-          this.isEnabledChanged();
-        },
-        isEnabledChanged: function() {
-          this.$.labelText.classList.toggle('disabled', !this.isEnabled);
-        },
-        toggleButton: function() {
-          this.isEnabled = !this.$.subtreeButton.value;
-        }
+      });
+      </script>
+  </polymer-element>
+
+  <polymer-element name="subtree-list" attributes="heading labels isEnabled">
+    <template>
+      <paper-toggle-button id="subtreeButton" checked></paper-toggle-button>
+      {{ heading }}
+      <ul class="subtree" id="relater-sub">
+        <template repeat="{{ label in labels }}">
+          <subtree-item label="{{ label }}"></subtree-item>
+        </template>
+      </ul>
+    </template>
+    <script>
+      Polymer('subtree-list', {
+        heading: 'Title',
+        labels: []
       });
       </script>
   </polymer-element>
@@ -46,15 +58,8 @@
 <body>
   <ul>
     <li>
-      <span class="haschildren">
-        Relater
-        <polymer-ui-toggle-button id="relater-head"></polymer-ui-toggle-button>
-      </span>
-      <ul class="subtree" id="relater-sub">
-        <subtree-item label="Item 1"></subtree-item>
-        <subtree-item label="Item Two"></subtree-item>
-        <subtree-item label="Item Three and Stuff"></subtree-item>
-      </ul>
+      <subtree-list heading="Relater" labels="[ 'one', 'two', 'three' ]"></subtree-list>
+      <subtree-list heading="Fruit" labels="[ 'apple', 'pear', 'orange' ]"></subtree-list>
     </li>
   <ul>
   <script src="index.js"></script>
